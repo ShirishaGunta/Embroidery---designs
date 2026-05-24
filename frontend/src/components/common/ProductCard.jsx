@@ -10,8 +10,11 @@ import {
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useCart } from "../../context/CartContext";
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
+
   return (
     <Card
       sx={{
@@ -77,6 +80,7 @@ const ProductCard = ({ product }) => {
           fullWidth
           variant="contained"
           startIcon={<ShoppingCartOutlinedIcon />}
+          onClick={() => addToCart(product)}
           sx={{
             mt: 2,
             backgroundColor: "#D63384",

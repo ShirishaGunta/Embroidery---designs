@@ -43,7 +43,7 @@ const categories = [
   },
 ];
 
-const CategoriesSection = () => {
+const CategoriesSection = ({ onCategoryClick }) => {
   return (
     <Box sx={{ mb: 8 }}>
       <Typography
@@ -67,6 +67,7 @@ const CategoriesSection = () => {
         {categories.map((item, index) => (
           <Box
             key={index}
+            onClick={() => onCategoryClick(item.name)}
             sx={{
               textAlign: "center",
               cursor: "pointer",

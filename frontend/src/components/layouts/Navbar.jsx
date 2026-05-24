@@ -23,37 +23,34 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
+import { useCart } from "../../context/CartContext";
 
 const Navbar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
-//   const navItems = [
-//     "Home",
-//     "Categories",
-//     "Collections",
-//     "Contact",
-//   ];
-const navItems = [
-  {
-    name: "Home",
-    path: "/",
-  },
+  const { totalItems } = useCart();
 
-  {
-    name: "Categories",
-    path: "/categories",
-  },
+  const navItems = [
+    {
+      name: "Home",
+      path: "/",
+    },
 
-  {
-    name: "Collections",
-    path: "/collections",
-  },
+    {
+      name: "Categories",
+      path: "/categories",
+    },
 
-  {
-    name: "Contact",
-    path: "/contact",
-  },
-];
+    {
+      name: "Collections",
+      path: "/collections",
+    },
+
+    {
+      name: "Contact",
+      path: "/contact",
+    },
+  ];
 
   return (
     <>
@@ -128,43 +125,43 @@ const navItems = [
                 gap: 4,
               }}
             >
-            {navItems.map((item) => (
-  <Button
-    key={item.name}
-    component={Link}
-    to={item.path}
-    color="inherit"
-    sx={{
-      color: "#2D2D2D",
-      fontWeight: 500,
-      fontSize: "0.95rem",
+              {navItems.map((item) => (
+                <Button
+                  key={item.name}
+                  component={Link}
+                  to={item.path}
+                  color="inherit"
+                  sx={{
+                    color: "#2D2D2D",
+                    fontWeight: 500,
+                    fontSize: "0.95rem",
 
-      position: "relative",
+                    position: "relative",
 
-      "&:hover": {
-        backgroundColor: "transparent",
-        color: "#D63384",
-      },
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                      color: "#D63384",
+                    },
 
-      "&::after": {
-        content: '""',
-        position: "absolute",
-        width: 0,
-        height: "2px",
-        bottom: 0,
-        left: 0,
-        backgroundColor: "#D63384",
-        transition: "0.3s",
-      },
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      width: 0,
+                      height: "2px",
+                      bottom: 0,
+                      left: 0,
+                      backgroundColor: "#D63384",
+                      transition: "0.3s",
+                    },
 
-      "&:hover::after": {
-        width: "100%",
-      },
-    }}
-  >
-    {item.name}
-  </Button>
-))}
+                    "&:hover::after": {
+                      width: "100%",
+                    },
+                  }}
+                >
+                  {item.name}
+                </Button>
+              ))}
             </Box>
 
             {/* RIGHT SECTION */}
@@ -199,12 +196,14 @@ const navItems = [
 
               {/* CART */}
               <IconButton
+              component={Link}
+              to="/cart"                
                 sx={{
                   color: "#2D2D2D",
                 }}
               >
                 <Badge
-                  badgeContent={2}
+                  badgeContent={totalItems}
                   color="primary"
                 >
                   <ShoppingCartIcon />
@@ -268,7 +267,7 @@ const navItems = [
           <Divider />
 
           {/* MENU ITEMS */}
-          <List>
+          {/* <List>
             {navItems.map((item) => (
               <ListItem
                 key={item}
@@ -284,7 +283,28 @@ const navItems = [
                 </ListItemButton>
               </ListItem>
             ))}
-          </List>
+          </List> */}
+
+          <List>
+  {navItems.map((item) => (
+    <ListItem
+      key={item.name}
+      disablePadding
+    >
+      <ListItemButton
+        component={Link}
+        to={item.path}
+      >
+        <ListItemText
+          primary={item.name}
+          primaryTypographyProps={{
+            fontWeight: 500,
+          }}
+        />
+      </ListItemButton>
+    </ListItem>
+  ))}
+</List>
 
           <Divider />
 

@@ -26,6 +26,7 @@ import ProductCard from "../../components/common/ProductCard";
 const products = [
   {
     name: "Royal Silk Blouse",
+    category: "Hand Allover",
     price: 1499,
     image:
       "https://images.unsplash.com/photo-1583391733981-8496f0d1c2e2",
@@ -33,6 +34,7 @@ const products = [
 
   {
     name: "Designer Party Blouse",
+    category: "Mirror Work",
     price: 1899,
     image:
       "https://images.unsplash.com/photo-1529139574466-a303027c1d8b",
@@ -40,6 +42,7 @@ const products = [
 
   {
     name: "Bridal Embroidery Blouse",
+    category: "Kachu work",
     price: 2499,
     image:
       "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
@@ -47,6 +50,7 @@ const products = [
 
   {
     name: "Traditional Cotton Blouse",
+    category: "Butta Design",
     price: 1199,
     image:
       "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
@@ -54,6 +58,7 @@ const products = [
 
   {
     name: "Wedding Collection",
+    category: "Net Design",
     price: 2999,
     image:
       "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
@@ -61,6 +66,7 @@ const products = [
 
   {
     name: "Premium Silk Blouse",
+    category: "Multipurpose",
     price: 1999,
     image:
       "https://images.unsplash.com/photo-1483985988355-763728e1935b",
@@ -208,6 +214,29 @@ const CategoriesPage = () => {
     </Box>
   );
 
+  const groupedProducts = products.reduce((acc, product) => {
+  if (!acc[product.category]) {
+    acc[product.category] = [];
+  }
+
+  acc[product.category].push(product);
+
+  return acc;
+}, {});
+
+const handleScrollToCategory = (category) => {
+  const section = document.getElementById(
+    category.toLowerCase()
+  );
+
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+};
+
   return (
     <>
       {/* NAVBAR */}
@@ -254,7 +283,8 @@ const CategoriesPage = () => {
           </Box>
 
           {/* CATEGORIES SECTION */}
-          <CategoriesSection />
+          {/* <CategoriesSection /> */}
+          <CategoriesSection onCategoryClick={handleScrollToCategory} />
 
           {/* MOBILE FILTER BUTTON */}
           {isMobile && (
@@ -297,20 +327,51 @@ const CategoriesPage = () => {
 
             {/* PRODUCTS */}
             <Grid item xs={12} md={9}>
-              <Grid container spacing={3}>
-                {products.map((product, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    lg={4}
-                    key={index}
-                  >
-                    <ProductCard product={product} />
-                  </Grid>
-                ))}
-              </Grid>
+  {Object.keys(groupedProducts).map((category) => (
+    <Box
+      key={category}
+      id={category.toLowerCase()}
+      sx={{
+        mb: 8,
+        scrollMarginTop: "120px",
+      }}
+    >
+      {/* CATEGORY TITLE */}
+      <Typography
+        variant="h4"
+        sx={{
+          mb: 4,
+          fontWeight: 700,
+          color: "#2D2D2D",
+
+          fontSize: {
+            xs: "1.8rem",
+            md: "2.2rem",
+          },
+        }}
+      >
+        {category} Collection
+      </Typography>
+
+      {/* PRODUCTS */}
+      <Grid container spacing={3}>
+        {groupedProducts[category].map(
+          (product, index) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              lg={4}
+              key={index}
+            >
+              <ProductCard product={product} />
             </Grid>
+          )
+        )}
+      </Grid>
+    </Box>
+  ))}
+</Grid>
           </Grid>
         </Container>
       </Box>
