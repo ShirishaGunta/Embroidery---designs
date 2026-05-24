@@ -1,0 +1,47 @@
+STEP 1
+
+Setup project with Vite + MUI
+
+STEP 2
+
+Create folder structure
+
+STEP 3
+
+Build Navbar + Footer
+
+STEP 4
+
+Build Home Page
+
+STEP 5
+
+Build Product Listing
+
+STEP 6
+
+Build Product Details
+
+STEP 7
+
+Build Cart
+
+STEP 8
+
+Build Authentication
+
+STEP 9
+
+Build Admin Panel
+
+STEP 10
+
+Connect Backend APIs
+
+STEP 11
+
+Payment Integration
+
+STEP 12
+
+Deploy Website
