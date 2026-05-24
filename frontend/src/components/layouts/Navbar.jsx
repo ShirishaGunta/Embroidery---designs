@@ -24,11 +24,14 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 
 const Navbar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const { totalItems } = useCart();
+
+  const { wishlistItems } = useWishlist();
 
   const navItems = [
     {
@@ -187,17 +190,21 @@ const Navbar = () => {
 
               {/* WISHLIST */}
               <IconButton
-                sx={{
-                  color: "#2D2D2D",
-                }}
+                component={Link}
+                to="/wishlist"
               >
-                <FavoriteBorderIcon />
+                <Badge
+                  badgeContent={wishlistItems.length}
+                  color="primary"
+                >
+                  <FavoriteBorderIcon />
+                </Badge>
               </IconButton>
 
               {/* CART */}
               <IconButton
-              component={Link}
-              to="/cart"                
+                component={Link}
+                to="/cart"
                 sx={{
                   color: "#2D2D2D",
                 }}
@@ -286,25 +293,25 @@ const Navbar = () => {
           </List> */}
 
           <List>
-  {navItems.map((item) => (
-    <ListItem
-      key={item.name}
-      disablePadding
-    >
-      <ListItemButton
-        component={Link}
-        to={item.path}
-      >
-        <ListItemText
-          primary={item.name}
-          primaryTypographyProps={{
-            fontWeight: 500,
-          }}
-        />
-      </ListItemButton>
-    </ListItem>
-  ))}
-</List>
+            {navItems.map((item) => (
+              <ListItem
+                key={item.name}
+                disablePadding
+              >
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                >
+                  <ListItemText
+                    primary={item.name}
+                    primaryTypographyProps={{
+                      fontWeight: 500,
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
 
           <Divider />
 

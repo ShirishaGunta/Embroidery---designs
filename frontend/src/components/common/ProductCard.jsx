@@ -9,11 +9,22 @@ import {
 } from "@mui/material";
 
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+
+  const {
+    toggleWishlist,
+    isInWishlist,
+  } = useWishlist();
+
+  const isWishlisted = isInWishlist(
+    product.name
+  );
 
   return (
     <Card
@@ -39,6 +50,7 @@ const ProductCard = ({ product }) => {
         />
 
         <IconButton
+          onClick={() => toggleWishlist(product)}
           sx={{
             position: "absolute",
             top: 10,
@@ -50,7 +62,15 @@ const ProductCard = ({ product }) => {
             },
           }}
         >
-          <FavoriteBorderIcon />
+          {isWishlisted ? (
+            <FavoriteIcon
+              sx={{
+                color: "#D63384",
+              }}
+            />
+          ) : (
+            <FavoriteBorderIcon />
+          )}
         </IconButton>
       </Box>
 

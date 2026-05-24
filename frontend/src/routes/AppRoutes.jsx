@@ -4,6 +4,7 @@ import HomePage from "../pages/customer/HomePage";
 import CategoriesPage from "../pages/customer/CategoriesPage";
 import CollectionsPage from "../pages/customer/CollectionsPage";
 import CartPage from "../pages/customer/CartPage";
+import WishlistPage from "../pages/customer/WishlistPage";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,10 @@ const AppRoutes = () => {
         <Route
           path="/cart"
           element={<CartPage />}
+        />
+        <Route
+          path="/wishlist"
+          element={<WishlistPage />}
         />
       </Routes>
     </BrowserRouter>
